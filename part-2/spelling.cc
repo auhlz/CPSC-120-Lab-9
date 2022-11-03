@@ -141,7 +141,7 @@ std::vector<std::string> miss_word = MisspelledWords(for_dict,for_doc);
 // for(int i = 0; i < miss_word.size(); i++){
 //   std::cout << miss_word.at(i);
 // }
-
+std::cout << "spelling errors: \n";
 for (int i = 0; i < miss_word.size(); i++){
    std::cout << miss_word.at(i) << "\n";
 }
