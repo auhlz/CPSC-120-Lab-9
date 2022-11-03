@@ -27,11 +27,16 @@
 
 std::vector<std::string> ReadWords(const std::string& filename) {
   std::vector<std::string> first;
-  std::ifstream input_file_stream{filename};
+  std::ifstream input_file_stream(filename);
   while (input_file_stream.good()) {
     std::string line_buffer;
-    std::getline(input_file_stream, line_buffer);
-    first.push_back(line_buffer);
+    input_file_stream >> line_buffer;
+    if(input_file_stream){
+      first.push_back(line_buffer);
+    }
+    // std::getline(input_file_stream, line_buffer);
+    // first.push_back(line_buffer);
+    // std::cout << line_buffer;
     }
   input_file_stream.close();
 
@@ -51,13 +56,14 @@ std::vector<std::string> ReadWords(const std::string& filename) {
 
 bool InDictionary(const std::vector<std::string>& dictionary,
                   const std::string& word) {
-bool word_present = true;
+// bool word_present = true;
 for (int i = 0; i < dictionary.size(); i++){
-  if (!(dictionary[i] == word)){
-    word_present = false;
+  if (dictionary[i] == word){
+    // word_present = false;
+    return true;
   }
 }
-  return word_present;
+  return false;
 }
 
 // Return a vector containing all of the misspelled words in document.
@@ -76,10 +82,10 @@ std::vector<std::string> MisspelledWords(
     const std::vector<std::string>& dictionary,
     const std::vector<std::string>& document) {
   std::vector<std::string> first;
-  std::string word;
+  // std::string word;
   for (int i = 0; i < document.size(); i++){
-    if (!InDictionary(dictionary,word)){
-      first.push_back(word);  
+    if (!InDictionary(dictionary,document.at(i))){
+      first.push_back(document.at(i));
     }
       
   }
@@ -108,6 +114,7 @@ std::vector<std::string> MisspelledWords(
   // TODO: print
   // spelling errors:
   // and then use a loop to print out each of the misspelled words
+
 int main(int argc, char* argv[]) {
   std::vector<std::string> arguments(argv, argv + argc);
   if (arguments.size() < 2) {
@@ -122,10 +129,19 @@ for_dict = ReadWords(words_list);
 
 std::vector<std::string> for_doc;
 for_doc = ReadWords(hold);
+// for(int i = 0; i < for_doc.size(); i++){
+//   std::cout << for_doc.at(i);
+// }
 
-std::vector<std::string> miss_word;
+std::vector<std::string> miss_word = MisspelledWords(for_dict,for_doc);
 
-miss_word = MisspelledWords(for_dict,for_doc);
+// miss_word = MisspelledWords(for_dict,for_doc);
+
+
+// for(int i = 0; i < miss_word.size(); i++){
+//   std::cout << miss_word.at(i);
+// }
+
 for (int i = 0; i < miss_word.size(); i++){
    std::cout << miss_word.at(i) << "\n";
 }
