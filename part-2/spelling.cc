@@ -31,8 +31,8 @@ std::vector<std::string> ReadWords(const std::string& filename) {
 }
 bool InDictionary(const std::vector<std::string>& dictionary,
                   const std::string& word) {
-  for (int i = 0; i < dictionary.size(); i++) {
-    if (dictionary[i] == word) {
+  for (const auto& i : dictionary) {
+    if (i == word) {
       return true;
     }
   }
@@ -43,10 +43,9 @@ std::vector<std::string> MisspelledWords(
     const std::vector<std::string>& dictionary,
     const std::vector<std::string>& document) {
   std::vector<std::string> first;
-  // std::string word;
-  for (int i = 0; i < document.size(); i++) {
-    if (!InDictionary(dictionary, document.at(i))) {
-      first.push_back(document.at(i));
+  for (const auto& i : document) {
+    if (!InDictionary(dictionary, i)) {
+      first.push_back(i);
     }
   }
   return first;
@@ -68,8 +67,8 @@ int main(int argc, char* argv[]) {
   std::vector<std::string> miss_word = MisspelledWords(for_dict, for_doc);
 
   std::cout << "spelling errors: \n";
-  for (int i = 0; i < miss_word.size(); i++) {
-    std::cout << miss_word.at(i) << "\n";
+  for (auto& i : miss_word) {
+    std::cout << i << "\n";
   }
   return 0;
 }
